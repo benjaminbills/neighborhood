@@ -8,6 +8,10 @@ from .models import Profile
 
 
 # Create your views here.
+def home(request):
+
+    context = { }
+    return render(request, 'home.html', context)
 
 @unauthenticated_user
 def loginPage(request):
