@@ -25,6 +25,7 @@
               {{business.name}}
             </a>
           </h5>
+          <p class="card-test">{{business.description}}</p>
           <p>
             <img class="rounded-circle" style="width: 1.5em; height: 1.5em" src="{{business.user.profile.photo.url}}" alt="">
             <a href="{% url 'user_page' business.user.id%}">
