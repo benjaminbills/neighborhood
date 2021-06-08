@@ -88,3 +88,10 @@ class BusinessTestClass(TestCase):
       self.business.delete_business()
       del_business=Business.objects.all()
       self.assertEqual(len(del_business),0)
+  def test_update_business(self):
+      self.business.save_business()
+      self.business.update_business(self.business.id, name='Maliza', email='maliza@gmail.com')
+      update_name=Business.objects.get(name='Maliza')
+      update_email=Business.objects.get(email='maliza@gmail.com')
+      self.assertEqual(update_name.name,'Maliza') 
+      self.assertEqual(update_email.email,'maliza@gmail.com') 

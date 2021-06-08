@@ -68,8 +68,8 @@ class Business(models.Model):
       return cls.objects.filter(name_icontains=name) 
     
     @classmethod
-    def update_business(cls, id, name):
-      update = cls.objects.filter(id=id).update(name=name)
+    def update_business(cls, id, name, email):
+      update = cls.objects.filter(id=id).update(name=name, email=email)
       return update 
 
 class Post(models.Model):
