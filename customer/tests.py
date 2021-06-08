@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
-from .models import Neighborhood, Profile
+from .models import Business, Neighborhood, Profile
 
 # Create your tests here.
 class ProfileTestClass(TestCase):
@@ -61,3 +61,23 @@ class NeighborhoodTestClass(TestCase):
       update_occupant=Neighborhood.objects.get(occupants_count=13)
       self.assertEqual(update_name.name,'Langata') 
       self.assertEqual(update_occupant.occupants_count,13) 
+
+
+class BusinessTestClass(TestCase):
+  def setUp(self):
+      self.user = User(username='Benjamin', email='ben@gmail.com', password='Bananna')
+      self.neighborhood = Neighborhood(name='Sandalwood', location='karen', occupants_count=10)
+      self.user.save()
+      self.neighborhood.save()
+      self.business = Business(name='Tazama', description='printing center', user=self.user, neighborhood=self.neighborhood)
+      
+      # Testing  instance
+  def test_instance(self):
+      self.assertTrue(isinstance(self.business,Business))  
+  def test_save_method(self):
+      self.business.save_business()     
+      business = Business.objects.all()
+      self.assertTrue(len(business) > 0) 
+  def tearDown(self):
+      Business.objects.all().delete()
+ 
