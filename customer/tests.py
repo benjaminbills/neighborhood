@@ -18,6 +18,12 @@ class ProfileTestClass(TestCase):
       self.profile.save_profile()     
       profile = Profile.objects.all()
       self.assertTrue(len(profile) > 0) 
-
-
-
+  def tearDown(self):
+      Profile.objects.all().delete()
+  def delete_profile(self):
+      self.profile.save_profile()
+      profile=Profile.objects.all()
+      self.assertEqual(len(profile), 1) 
+      self.profile.delete_profile()
+      del_profile=Profile.objects.all()
+      self.assertEqual(len(del_profile),0)
