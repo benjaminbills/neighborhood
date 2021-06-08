@@ -35,3 +35,9 @@ class ProfileTestClass(TestCase):
       self.assertEqual(update_bio.bio,'I am good') 
       self.assertEqual(update_profile_photo.photo,'http:image2') 
 
+
+class NeighborhoodTestClass(TestCase):
+  def setUp(self):
+      self.neighborhood = Neighborhood(name='Sandalwood', location='karen', occupants_count=10)
+  def test_instance(self):
+      self.assertTrue(isinstance(self.neighborhood,Neighborhood)) 
