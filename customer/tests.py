@@ -80,4 +80,11 @@ class BusinessTestClass(TestCase):
       self.assertTrue(len(business) > 0) 
   def tearDown(self):
       Business.objects.all().delete()
- 
+
+  def delete_business(self):
+      self.business.save_business()
+      business=Business.objects.all()
+      self.assertEqual(len(business), 1) 
+      self.business.delete_business()
+      del_business=Business.objects.all()
+      self.assertEqual(len(del_business),0)
