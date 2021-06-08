@@ -1,8 +1,8 @@
 # neighborhood
-A web application that enables users to get updat about their neighborhood.
+A web application that enables users to get update about their neighborhood.
 
 
-## [Live Link](https://neighborhood.herokuapp.com/)
+## [Live Link](https://neighborhoodmoringa.herokuapp.com/)
 
 ### Development
 
