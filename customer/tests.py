@@ -114,4 +114,11 @@ class PostTestClass(TestCase):
   def tearDown(self):
       Post.objects.all().delete()
 
+  def delete_post(self):
+      self.post.save_post()
+      post=Post.objects.all()
+      self.assertEqual(len(post), 1) 
+      self.post.delete_post()
+      del_post=Post.objects.all()
+      self.assertEqual(len(del_post),0)
   
