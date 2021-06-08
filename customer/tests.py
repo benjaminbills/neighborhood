@@ -54,3 +54,10 @@ class NeighborhoodTestClass(TestCase):
       self.neighborhood.delete_neighborhood()
       del_neighborhood=Neighborhood.objects.all()
       self.assertEqual(len(del_neighborhood),0)
+  def test_update_neighborhood(self):
+      self.neighborhood.save_neighborhood()
+      self.neighborhood.update_neighborhood(self.neighborhood.id, name='Langata', location='ngong', occupants_count=13)
+      update_name=Neighborhood.objects.get(name='Langata')
+      update_occupant=Neighborhood.objects.get(occupants_count=13)
+      self.assertEqual(update_name.name,'Langata') 
+      self.assertEqual(update_occupant.occupants_count,13) 

@@ -23,8 +23,8 @@ class Neighborhood(models.Model):
       return cls.objects.filter(name_icontains=name) 
     
     @classmethod
-    def update_neighborhood(cls, id, name):
-      update = cls.objects.filter(id=id).update(name=name)
+    def update_neighborhood(cls, id, name, occupants_count, location):
+      update = cls.objects.filter(id=id).update(name=name, occupants_count=occupants_count, location=location)
       return update 
 
 class Profile(models.Model):
