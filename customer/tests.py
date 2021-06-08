@@ -27,3 +27,11 @@ class ProfileTestClass(TestCase):
       self.profile.delete_profile()
       del_profile=Profile.objects.all()
       self.assertEqual(len(del_profile),0)
+  def test_update_profile(self):
+      self.profile.save_profile()
+      self.profile.update_profile(self.profile.id, bio='I am good', photo='http:image2')
+      update_bio=Profile.objects.get(bio='I am good')
+      update_profile_photo=Profile.objects.get(photo='http:image2')
+      self.assertEqual(update_bio.bio,'I am good') 
+      self.assertEqual(update_profile_photo.photo,'http:image2') 
+
