@@ -17,6 +17,8 @@ urlpatterns = [
   path('get_posts/', views.getPosts, name='get_posts'),
   path('get_post/<str:post_id>', views.getPost, name='get_post'),
   path('search/', views.search, name='search'),
-  path('delete_neighborhood/<str:pk>', views.deleteNeighborhood, name='delete_neighborhood')
+  path('delete_neighborhood/<str:pk>', views.deleteNeighborhood, name='delete_neighborhood'),
+  path('delete_post/<str:pk>', views.deletePost, name='delete_post'),
+  path('add_neighborhood/', views.addNeighborhood, name='add_neighborhood'),
 
 ]

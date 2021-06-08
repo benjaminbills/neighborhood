@@ -8,29 +8,9 @@
 {% block content %}
 <div class="container pt-4">
   <div class="row">
-    <div class="col-md-5">
-      <h5>Neighborhood:</h5>
-      <hr>
-      <div class="card card-body">
-        <a class="btn btn-primary  btn-sm btn-block" href="">Create Customer</a>
-        <table class="table table-sm">
-          <tr>
-            <th></th>
-            <th>Customer</th>
-            <th>Phone</th>
-          </tr>
-          {% for customer in customers %}
-          <tr>
-            <td><a class="btn btn-sm btn-info" href="{% url 'customer' customer.id %}">View</a></td>
-            <td>{{customer.name}}</td>
-            <td>{{customer.phone}}</td>
-          </tr>
-          {% endfor %}
-        </table>
-      </div>
-    </div>
-    <div class="col-md-7">
+    <div class="col-md-12">
       <h5>Neighborhood</h5>
+      <a class="btn btn-sm btn-success" href="{% url 'add_neighborhood' %}">Add neighborhood</a>
       <hr>
       <div class="card card-body">
         <table class="table table-sm">
@@ -38,7 +18,6 @@
             <th>Name</th>
             <th>Location</th>
             <th>OccupantsS</th>
-            <th>Update</th>
             <th>Remove</th>
           </tr>
           {% for neighborhood in neighborhoods %}
@@ -46,13 +25,40 @@
             <td>{{neighborhood.name}}</td>
             <td>{{neighborhood.location}}</td>
             <td>{{neighborhood.occupants_count}}</td>
-            <td><a class="btn btn-sm btn-info" href="">Update</a></td>
             <td><a class="btn btn-sm btn-danger" href="{% url 'delete_neighborhood' neighborhood.id %}">Delete</a></td>
           </tr>
           {% endfor %}
         </table>
       </div>
     </div>
+</div>
+<div class="container pt-4">
+  <h5>Post</h5>
+  <hr>
+  <div class="row gx-5">
+    {% for post in posts %}
+    <div class="col-sm-12 col-md-6 pt-4">
+      <div class="card">
+      <h5 class="card-title">
+            <a href="{% url 'get_post' post.id %}">
+              {{post.title}}
+            </a>
+          </h5>
+        
+        <div class="card-body">
+          <p class="card-test">{{post.content}}</p>
+          <p>
+            <img class="rounded-circle" style="width: 1.5em; height: 1.5em" src="{{project.user.profile.photo.url}}" alt="">
+            <a href="">
+              <span>By:{{post.user.username}}</span>
+            </a>
+          </p>
+          <a class="btn btn-sm btn-danger" href="{% url 'delete_post' post.id %}">Delete</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
 </div>
 
 

@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .decorators import admin_only, unauthenticated_user, allowed_users
 from django.contrib import messages
-from .forms import  BusinessForm, CreateUserForm, PostForm, ProfileForm
+from .forms import  BusinessForm, CreateUserForm, PostForm, ProfileForm, NeighborhoodForm
 from .models import Business, Neighborhood, Post, Profile
 from django.contrib.auth.models import Group
 
@@ -19,7 +19,9 @@ def home(request):
 @admin_only
 def dashboard(request):
     neighborhoods = Neighborhood.objects.all()
-    context = {'neighborhoods':neighborhoods}
+    posts = Post.objects.all()
+    print(posts)
+    context = {'neighborhoods':neighborhoods, 'posts':posts}
     return render(request, 'admin/dashboard.html', context)
 
 @unauthenticated_user
@@ -125,7 +127,6 @@ def addPost(request):
 
 def getPosts(request):
     posts = Post.objects.all()
-    
     context = {'posts':posts }
     return render(request, 'post/posts.html', context)
 
@@ -149,3 +150,26 @@ def deleteNeighborhood(request, pk):
 	neighborhood = Neighborhood.objects.get(id=pk)
 	neighborhood.delete()
 	return redirect('dashboard')
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def deletePost(request, pk):
+	post = Post.objects.get(id=pk)
+	post.delete()
+	return redirect('dashboard')
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def addNeighborhood(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = NeighborhoodForm(request.POST, request.FILES)
+        if form.is_valid():
+            neighborhood = form.save(commit=False)
+            neighborhood.save()
+            return redirect('dashboard')
+
+    else:
+        form = NeighborhoodForm()
+    context = {'form':form}
+    return render(request, 'admin/neighborhood_add.html', context)
