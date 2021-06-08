@@ -9,8 +9,9 @@ from .models import Business, Post, Profile
 
 # Create your views here.
 def home(request):
-
-    context = { }
+    businesses = Business.objects.all()
+    posts = Post.objects.all()
+    context = {'posts':posts,'businesses':businesses }
     return render(request, 'home.html', context)
 
 @unauthenticated_user

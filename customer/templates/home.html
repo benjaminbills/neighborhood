@@ -6,10 +6,58 @@
 
 {% block content %}
 
-<h2>List of Business</h2>
+<div class="container">
+  <h2 class="pt-4">List of Business</h2>
+{% for business in businesses %}
+<div class="col-6 pt-4">
+      <div class="card">
+      <h5 class="card-title">
+            <a href="{% url 'get_business' business.id %}">
+              {{business.name}}
+            </a>
+          </h5>
+        
+        <div class="card-body">
+          
+          <p>
+            <img class="rounded-circle" style="width: 1.5em; height: 1.5em" src="{{business.user.profile.photo.url}}" alt="">
+            <a href="">
+              <span>By:{{business.user.username}}</span>
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+{% endfor %}
+</div>
+<div class="container">
+  <h2 class="pt-4">Current updates</h2>
+  <div class="row gx-5">
+    {% for post in posts %}
+    <div class="col-6 pt-4">
+      <div class="card">
+      <h5 class="card-title">
+            <a href="{% url 'get_post' post.id %}">
+              {{post.title}}
+            </a>
+          </h5>
+        
+        <div class="card-body">
+          
+          <p>
+            <img class="rounded-circle" style="width: 1.5em; height: 1.5em" src="{{post.user.profile.photo.url}}" alt="">
+            <a href="">
+              <span>By:{{post.user.username}}</span>
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
 
 {% endblock %}
-
 
 {% block script %}
 
