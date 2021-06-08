@@ -15,5 +15,5 @@ urlpatterns = [
   path('add_post/', views.addPost, name='add_post'),
   path('get_posts/', views.getPosts, name='get_posts'),
   path('get_post/<str:post_id>', views.getPost, name='get_post'),
-
+  path('search/', views.search, name='search'),
 ]

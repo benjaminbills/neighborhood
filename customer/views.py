@@ -1,3 +1,4 @@
+from customer.filters import BusinessFilter
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -125,3 +126,10 @@ def getPost(request, post_id):
     post = Post.objects.get(pk=post_id)
     context = {'post':post}
     return render(request, 'post/post.html', context)
+
+def search(request):
+    businesses = Business.objects.all()
+    myFilter = BusinessFilter(request.GET, queryset=businesses)
+    businesses = myFilter.qs
+    context = {'businesses':businesses, 'myFilter':myFilter}
+    return render(request, 'business/search.html', context)
