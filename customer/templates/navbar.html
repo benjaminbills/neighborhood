@@ -15,15 +15,27 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'get_businesses'%}">Businesses</a>
         </li>
+        {% if request.user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'add_business'%}">Add Business</a>
         </li>
+        {% endif %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'get_posts'%}">Posts</a>
         </li>
+        {% if request.user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'add_post'%}">Add Post</a>
         </li>
+        {% endif %}
+        {% if request.user.is_staff %}
+        <li class="nav-item">
+          <a class="nav-link" href="">Add Neighborhood</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'dashboard'%}">Admin Dashboard</a>
+        </li>
+        {% endif %}
       </ul>
       <ul class="navbar-nav ms-auto">
         {% if request.user.is_authenticated %}

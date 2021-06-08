@@ -2,10 +2,11 @@ from customer.filters import BusinessFilter
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .decorators import unauthenticated_user
+from .decorators import admin_only, unauthenticated_user, allowed_users
 from django.contrib import messages
 from .forms import  BusinessForm, CreateUserForm, PostForm, ProfileForm
-from .models import Business, Post, Profile
+from .models import Business, Neighborhood, Post, Profile
+from django.contrib.auth.models import Group
 
 
 # Create your views here.
@@ -14,6 +15,12 @@ def home(request):
     posts = Post.objects.all()
     context = {'posts':posts,'businesses':businesses }
     return render(request, 'home.html', context)
+@login_required(login_url='login')
+@admin_only
+def dashboard(request):
+    neighborhoods = Neighborhood.objects.all()
+    context = {'neighborhoods':neighborhoods}
+    return render(request, 'admin/dashboard.html', context)
 
 @unauthenticated_user
 def loginPage(request):
@@ -37,6 +44,8 @@ def registerPage(request):
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
+            group = Group.objects.get(name='customer')
+            user.groups.add(group)
             Profile.objects.create(
                 user=user,
             )
@@ -133,3 +142,10 @@ def search(request):
     businesses = myFilter.qs
     context = {'businesses':businesses, 'myFilter':myFilter}
     return render(request, 'business/search.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def deleteNeighborhood(request, pk):
+	neighborhood = Neighborhood.objects.get(id=pk)
+	neighborhood.delete()
+	return redirect('dashboard')

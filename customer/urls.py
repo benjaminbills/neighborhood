@@ -7,6 +7,7 @@ urlpatterns = [
 	path('login/', views.loginPage, name="login"),  
   path('logout/', views.logoutUser, name="logout"),
   path('', views.home, name='home' ),
+  path('dashboard', views.dashboard, name='dashboard' ),
   path('user/<int:user_id>', views.userPage, name='user_page'),
   path('account/', views.accountSettings, name='account'),
   path('add_business/', views.addBusiness, name='add_business'),
@@ -16,4 +17,6 @@ urlpatterns = [
   path('get_posts/', views.getPosts, name='get_posts'),
   path('get_post/<str:post_id>', views.getPost, name='get_post'),
   path('search/', views.search, name='search'),
+  path('delete_neighborhood/<str:pk>', views.deleteNeighborhood, name='delete_neighborhood')
+
 ]
