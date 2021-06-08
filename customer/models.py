@@ -32,7 +32,7 @@ class Profile(models.Model):
   bio=models.TextField(max_length=1000, default='No Bio')
   user=models.OneToOneField(User, null=True, on_delete=models.CASCADE)
   neighborhood=models.ForeignKey(Neighborhood, on_delete=models.CASCADE, null=True)
-  
+
   def save_profile(self):
         self.save()
   def delete_profile(self):
@@ -45,3 +45,29 @@ class Profile(models.Model):
   def get_profile(cls,username):
         profile = cls.objects.filter(user__username__icontains=username)
         return profile
+
+
+class Business(models.Model):
+    name=models.CharField(max_length=50)
+    description=models.TextField()
+    user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='business_user',null=True)
+    email=models.EmailField()
+    neighborhood=models.ForeignKey(Neighborhood,on_delete=models.CASCADE)
+
+    def __str__(self):
+      return self.name
+
+    def save_business(self):
+      self.save()
+
+    def delete_business(self):
+      self.delete()
+        
+    @classmethod
+    def find_business(cls, name):
+      return cls.objects.filter(name_icontains=name) 
+    
+    @classmethod
+    def update_business(cls, id, name):
+      update = cls.objects.filter(id=id).update(name=name)
+      return update 

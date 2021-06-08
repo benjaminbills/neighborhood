@@ -9,5 +9,6 @@ urlpatterns = [
   path('', views.home, name='home' ),
   path('user/<int:user_id>', views.userPage, name='user_page'),
   path('account/', views.accountSettings, name='account'),
-
+  path('add_business/', views.addBusiness, name='add_business'),
+  path('get_businesses/', views.getBusinesses, name='get_businesses'),
 ]

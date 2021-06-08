@@ -3,8 +3,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .decorators import unauthenticated_user
 from django.contrib import messages
-from .forms import  CreateUserForm, ProfileForm
-from .models import Profile
+from .forms import  BusinessForm, CreateUserForm, ProfileForm
+from .models import Business, Profile
 
 
 # Create your views here.
@@ -66,3 +66,25 @@ def accountSettings(request):
 
 	context = {'form':form}
 	return render(request, 'profile/profile_edit.html', context)
+
+@login_required(login_url='login')
+def addBusiness(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = BusinessForm(request.POST, request.FILES)
+        if form.is_valid():
+            business = form.save(commit=False)
+            business.user = current_user
+            business.save()
+        return redirect('home')
+
+    else:
+        form = BusinessForm()
+    context = {'form':form}
+    return render(request, 'business/business_add.html', context)
+
+def getBusinesses(request):
+    businesses = Business.objects.all()
+    
+    context = {'businesses':businesses }
+    return render(request, 'bsiness/businesses.html', context)
