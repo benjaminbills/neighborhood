@@ -47,3 +47,22 @@ def registerPage(request):
 def logoutUser(request):
     logout(request)
     return redirect('login')
+
+def userPage(request, user_id):
+    profile = Profile.objects.get(user=user_id)
+    
+    context = {'profile':profile}
+    return render(request, 'profile/profile.html', context)
+
+@login_required(login_url='login')
+def accountSettings(request):
+	profile = request.user.profile
+	form = ProfileForm(instance=profile)
+	if request.method == 'POST':
+		form = ProfileForm(request.POST, request.FILES,instance=profile)
+		if form.is_valid():
+			form.save()
+
+
+	context = {'form':form}
+	return render(request, 'profile/profile_edit.html', context)
