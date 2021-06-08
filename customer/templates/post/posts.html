@@ -9,7 +9,7 @@
 <div class="container">
   <div class="row gx-5">
     {% for post in posts %}
-    <div class="col-6 pt-4">
+    <div class="col-sm-12 col-md-6 pt-4">
       <div class="card">
       <h5 class="card-title">
             <a href="{% url 'get_post' post.id %}">
@@ -18,7 +18,7 @@
           </h5>
         
         <div class="card-body">
-          
+          <p class="card-test">{{post.content}}</p>
           <p>
             <img class="rounded-circle" style="width: 1.5em; height: 1.5em" src="{{project.user.profile.photo.url}}" alt="">
             <a href="">
