@@ -45,3 +45,12 @@ class NeighborhoodTestClass(TestCase):
       self.neighborhood.save_neighborhood()     
       neighborhood = Neighborhood.objects.all()
       self.assertTrue(len(neighborhood) > 0)  
+  def tearDown(self):
+      Neighborhood.objects.all().delete()
+  def delete_neighborhood(self):
+      self.neighborhood.save_neighborhood()
+      neighborhood=Neighborhood.objects.all()
+      self.assertEqual(len(neighborhood), 1) 
+      self.neighborhood.delete_neighborhood()
+      del_neighborhood=Neighborhood.objects.all()
+      self.assertEqual(len(del_neighborhood),0)
