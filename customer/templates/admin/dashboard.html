@@ -17,7 +17,7 @@
           <tr>
             <th>Name</th>
             <th>Location</th>
-            <th>OccupantsS</th>
+            <th>Occupants</th>
             <th>Remove</th>
           </tr>
           {% for neighborhood in neighborhoods %}
@@ -48,7 +48,7 @@
         <div class="card-body">
           <p class="card-test">{{post.content}}</p>
           <p>
-            <img class="rounded-circle" style="width: 1.5em; height: 1.5em" src="{{project.user.profile.photo.url}}" alt="">
+            <img class="rounded-circle" style="width: 1.5em; height: 1.5em" src="{{post.user.profile.photo.url}}" alt="">
             <a href="">
               <span>By:{{post.user.username}}</span>
             </a>

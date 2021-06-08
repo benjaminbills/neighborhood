@@ -30,18 +30,21 @@
         {% endif %}
         {% if request.user.is_staff %}
         <li class="nav-item">
-          <a class="nav-link" href="">Add Neighborhood</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="{% url 'dashboard'%}">Admin Dashboard</a>
         </li>
         {% endif %}
       </ul>
       <ul class="navbar-nav ms-auto">
         {% if request.user.is_authenticated %}
+          {% if request.user.is_staff %}
         <li class="nav-item">
+          <a class="nav-link" href="">{{request.user.username}}</a>
+        </li>
+          {% else %}
+          <li class="nav-item">
           <a class="nav-link" href="{% url 'user_page' request.user.id %}">{{request.user.username}}</a>
         </li>
+          {% endif %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'logout'%}">Logout</a>
         </li>
