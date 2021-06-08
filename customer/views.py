@@ -102,7 +102,7 @@ def getBusinesses(request):
     context = {'businesses':businesses }
     return render(request, 'business/businesses.html', context)
 
-@login_required(login_url='login')
+
 def getBusiness(request, business_id):
     current_user = request.user
     business = Business.objects.get(pk=business_id)
@@ -130,7 +130,6 @@ def getPosts(request):
     context = {'posts':posts }
     return render(request, 'post/posts.html', context)
 
-@login_required(login_url='login')
 def getPost(request, post_id):
     current_user = request.user
     post = Post.objects.get(pk=post_id)

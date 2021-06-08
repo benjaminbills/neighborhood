@@ -28,7 +28,7 @@ class Neighborhood(models.Model):
       return update 
 
 class Profile(models.Model):
-  photo=models.ImageField(upload_to='profile_photos/', default='profile_photos/default_rr8opn', blank=True)
+  photo=models.ImageField(upload_to='profile_photos/', default='profile_photos/default_wijiaj', blank=True)
   bio=models.TextField(max_length=1000, default='No Bio')
   user=models.OneToOneField(User, null=True, on_delete=models.CASCADE)
   neighborhood=models.ForeignKey(Neighborhood, on_delete=models.CASCADE, null=True)
