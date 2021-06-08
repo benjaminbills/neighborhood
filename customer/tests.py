@@ -121,4 +121,12 @@ class PostTestClass(TestCase):
       self.post.delete_post()
       del_post=Post.objects.all()
       self.assertEqual(len(del_post),0)
+
+  def test_update_post(self):
+      self.post.save_post()
+      self.post.update_post(self.post.id, title='Fire', content='Fire on the road')
+      update_post=Post.objects.get(title='Fire')
+      update_content=Post.objects.get(content='Fire on the road')
+      self.assertEqual(update_post.title,'Fire') 
+      self.assertEqual(update_content.content,'Fire on the road') 
   
