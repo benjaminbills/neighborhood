@@ -40,4 +40,8 @@ class NeighborhoodTestClass(TestCase):
   def setUp(self):
       self.neighborhood = Neighborhood(name='Sandalwood', location='karen', occupants_count=10)
   def test_instance(self):
-      self.assertTrue(isinstance(self.neighborhood,Neighborhood)) 
+      self.assertTrue(isinstance(self.neighborhood,Neighborhood))
+  def test_save_method(self):
+      self.neighborhood.save_neighborhood()     
+      neighborhood = Neighborhood.objects.all()
+      self.assertTrue(len(neighborhood) > 0)  
