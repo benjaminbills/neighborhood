@@ -3,8 +3,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .decorators import unauthenticated_user
 from django.contrib import messages
-from .forms import  BusinessForm, CreateUserForm, ProfileForm
-from .models import Business, Profile
+from .forms import  BusinessForm, CreateUserForm, PostForm, ProfileForm
+from .models import Business, Post, Profile
 
 
 # Create your views here.
@@ -87,4 +87,40 @@ def getBusinesses(request):
     businesses = Business.objects.all()
     
     context = {'businesses':businesses }
-    return render(request, 'bsiness/businesses.html', context)
+    return render(request, 'business/businesses.html', context)
+
+@login_required(login_url='login')
+def getBusiness(request, business_id):
+    current_user = request.user
+    business = Business.objects.get(pk=business_id)
+    context = {'business':business}
+    return render(request, 'business/business.html', context)
+
+@login_required(login_url='login')
+def addPost(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = current_user
+            post.save()
+        return redirect('get_posts')
+
+    else:
+        form = PostForm()
+    context = {'form':form}
+    return render(request, 'post/post_add.html', context)
+
+def getPosts(request):
+    posts = Post.objects.all()
+    
+    context = {'posts':posts }
+    return render(request, 'post/posts.html', context)
+
+@login_required(login_url='login')
+def getPost(request, post_id):
+    current_user = request.user
+    post = Post.objects.get(pk=post_id)
+    context = {'post':post}
+    return render(request, 'post/post.html', context)

@@ -11,4 +11,9 @@ urlpatterns = [
   path('account/', views.accountSettings, name='account'),
   path('add_business/', views.addBusiness, name='add_business'),
   path('get_businesses/', views.getBusinesses, name='get_businesses'),
+  path('get_business/<str:business_id>', views.getBusiness, name='get_business'),
+  path('add_post/', views.addPost, name='add_post'),
+  path('get_posts/', views.getPosts, name='get_posts'),
+  path('get_post/<str:post_id>', views.getPost, name='get_post'),
+
 ]

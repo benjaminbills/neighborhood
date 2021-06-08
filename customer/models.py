@@ -71,3 +71,13 @@ class Business(models.Model):
     def update_business(cls, id, name):
       update = cls.objects.filter(id=id).update(name=name)
       return update 
+
+class Post(models.Model):
+  title=models.CharField(max_length=100)
+  content=models.TextField()
+  pub_date=models.DateTimeField(auto_now_add=True)
+  user=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+  neighborhood=models.ForeignKey(Neighborhood,on_delete=models.CASCADE,null=True)
+
+  def __str__(self):
+    return self.title

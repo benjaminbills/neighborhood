@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Business, Profile
+from .models import Business, Post, Profile
 
 class CreateUserForm(UserCreationForm):
 	class Meta:
@@ -17,5 +17,11 @@ class ProfileForm(ModelForm):
 class BusinessForm(ModelForm):
     class Meta:
         model = Business
+        field = '__all__'
+        exclude = ['user']
+
+class PostForm(ModelForm):
+    class Meta:
+        model = Post
         field = '__all__'
         exclude = ['user']
